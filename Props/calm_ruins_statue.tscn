@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwvvr28nrv7mm"]
+
+[ext_resource type="PackedScene" uid="uid://daytxqfxdhmm7" path="res://Props/glb/calm_ruins_statue.glb" id="1_j2fe1"]
+[ext_resource type="Material" uid="uid://8ratdnder8d2" path="res://Material/rock.tres" id="2_gkwjd"]
+
+[node name="calm_ruins_statue" instance=ExtResource("1_j2fe1")]
+
+[node name="statue" parent="." index="0"]
+material_override = ExtResource("2_gkwjd")

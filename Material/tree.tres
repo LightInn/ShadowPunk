@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cj7hv6li6be1e"]
+
+[resource]
+resource_name = "tree"
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.601658, 0.383437, 0.247486, 1)
+metallic = 0.35
+roughness = 0.0

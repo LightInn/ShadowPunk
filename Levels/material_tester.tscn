@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmf70awx5chpf"]
+
+[ext_resource type="Material" uid="uid://bab6uma4l2rvl" path="res://Material/grass_blade.tres" id="1_oyrar"]
+
+[node name="MaterialTester" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radial_segments = 32
+rings = 18
+material = ExtResource("1_oyrar")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.61953)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0305597, -0.904106, 0.426214, 0.488024, 0.358635, 0.795747, -0.872295, 0.232321, 0.430266, 0, 4.21706, 0)

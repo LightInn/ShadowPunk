@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckrui6fwthrlp"]
+
+[ext_resource type="PackedScene" uid="uid://bkd4o4dygccr5" path="res://Props/glb/plaque.glb" id="1_841sy"]
+[ext_resource type="Material" uid="uid://8ratdnder8d2" path="res://Material/rock.tres" id="2_5g07o"]
+
+[node name="plaque" instance=ExtResource("1_841sy")]
+
+[node name="Cube_060" parent="." index="0"]
+transform = Transform3D(0.522254, 0, 0.00950681, 0, 0.0454203, 0, -0.0190136, 0, 0.261127, -1.07132, 0, -0.214886)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_061" parent="." index="1"]
+transform = Transform3D(0.474606, 0, 0, 0, 0.041249, 0, 0, 0, 0.237303, -0.944947, -0.0224595, 0.398334)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_062" parent="." index="2"]
+transform = Transform3D(-0.00740822, 0, -0.197507, 0, 0.0343376, 0, 0.395014, 0, -0.00370411, -0.178405, -0.0224595, -0.16402)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_063" parent="." index="3"]
+transform = Transform3D(-0.385234, 0, 0.0438328, 0, 0.0343376, 0, -0.0876656, 0, -0.192617, 0.00443441, -0.0224595, 0.623298)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_064" parent="." index="4"]
+transform = Transform3D(0.371977, 0, 0.00950371, 0, 0.0454203, 0, -0.0135425, 0, 0.261042, 0.4442, -0.0224595, -0.204188)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_066" parent="." index="5"]
+transform = Transform3D(-0.0720165, 0, -0.270474, 0, 0.0473291, 0, 0.595761, 0, -0.0326954, 0.481861, -0.0426807, -1.18326)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_067" parent="." index="6"]
+transform = Transform3D(-0.392541, 0.000196257, -0.022346, 0.00106829, 0.0343251, 0.00528581, 0.0447363, 0.000902387, -0.196202, -0.325763, 0.0209055, -0.836795)
+material_override = ExtResource("2_5g07o")
+
+[node name="Cube_065" parent="." index="7"]
+transform = Transform3D(0.146142, 0, 0, 0, 0.041249, 0, 0, 0, 0.237303, 0.665124, -0.0109856, 0.344776)
+material_override = ExtResource("2_5g07o")

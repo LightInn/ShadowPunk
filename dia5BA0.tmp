@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://5n5bafi8rhju"]
+
+[ext_resource type="PackedScene" uid="uid://d2du5tbspm23g" path="res://player.tscn" id="1_ud1eo"]
+[ext_resource type="PackedScene" uid="uid://oy265uok2ewn" path="res://npc.tscn" id="2_lp4ta"]
+[ext_resource type="Script" path="res://dialogue_manager.gd" id="3_64yaw"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cfhrf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hjt1"]
+albedo_color = Color(0, 0.691112, 0.841525, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0xif3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfh5j"]
+albedo_color = Color(1, 0.38856, 0.416487, 1)
+
+[node name="dialogueproto" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.73346, 0)
+
+[node name="world" type="Node" parent="."]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57883, -1.08826, -7.27021)
+size = Vector3(6.22491, 1, 10.1966)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90348, -1.08826, -11.9361)
+size = Vector3(6.22491, 1, 6.05428)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.11813, -0.485101, -10.783)
+size = Vector3(10.2506, 0.285156, 1.26591)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.03954, 0.242802, 3.03621)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.39216, 7.38032, 1.45321)
+light_energy = 2.524
+omni_range = 28.1082
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27893, 0.242802, -12.0718)
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.24995, 6.23373, -12.0718)
+omni_range = 17.629
+
+[node name="StaticBody3D" type="StaticBody3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45605, -1.60833, -5.48322)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="world/StaticBody3D"]
+size = Vector3(19.7695, 1, 23.0043)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00459242, 0.430933, 0.429014)
+shape = SubResource("WorldBoundaryShape3D_cfhrf")
+
+[node name="player" parent="." instance=ExtResource("1_ud1eo")]
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_lp4ta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34612, -7.69971)
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2045, -4.46311, -8.80568)
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.86783, 0)
+material = SubResource("StandardMaterial3D_2hjt1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.86783, 0)
+shape = SubResource("SphereShape3D_0xif3")
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89936, -4.46311, -8.80568)
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="RigidBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.86783, 0)
+material = SubResource("StandardMaterial3D_pfh5j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.86783, 0)
+shape = SubResource("SphereShape3D_0xif3")
+
+[node name="DialogueManager" type="Node" parent="."]
+script = ExtResource("3_64yaw")

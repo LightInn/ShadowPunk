@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6j8xbxkre6bm"]
+
+[ext_resource type="PackedScene" uid="uid://c2dehinupp0p5" path="res://Props/glb/calm_ruins.glb" id="1_5opwn"]
+[ext_resource type="Material" uid="uid://t1ekpyp3dl4t" path="res://Material/grass.tres" id="2_oslfe"]
+[ext_resource type="Material" uid="uid://cj7hv6li6be1e" path="res://Material/tree.tres" id="2_wh2g0"]
+[ext_resource type="Material" uid="uid://cna2mrq5tpxy8" path="res://Material/leaf_pink.tres" id="3_aj163"]
+[ext_resource type="Material" uid="uid://brqwq4nrfo60c" path="res://Material/leaf_green_shader.tres" id="4_klhp2"]
+
+[node name="calm_ruins" instance=ExtResource("1_5opwn")]
+
+[node name="terrain" parent="." index="0"]
+material_override = ExtResource("2_oslfe")
+surface_material_override/0 = ExtResource("2_oslfe")
+
+[node name="Cylinder" parent="." index="55"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_002" parent="." index="56"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_003" parent="." index="57"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_004" parent="." index="58"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_005" parent="." index="59"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_006" parent="." index="60"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_007" parent="." index="61"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_008" parent="." index="62"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_009" parent="." index="63"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_010" parent="." index="64"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Cylinder_011" parent="." index="65"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="Icosphere_004" parent="." index="69"]
+surface_material_override/0 = ExtResource("4_klhp2")
+
+[node name="Cylinder_001" parent="." index="77"]
+material_override = ExtResource("2_wh2g0")
+
+[node name="leafs" parent="." index="83"]
+material_override = ExtResource("3_aj163")
+
+[node name="trunc" parent="." index="85"]
+material_override = ExtResource("2_wh2g0")

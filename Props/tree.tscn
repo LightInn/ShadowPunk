@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd7hmir03og1"]
+
+[ext_resource type="PackedScene" uid="uid://blaflq75wovkc" path="res://Props/glb/tree.glb" id="1_ue4fb"]
+[ext_resource type="Material" uid="uid://brqwq4nrfo60c" path="res://Material/leaf_green_shader.tres" id="2_esvof"]
+
+[node name="tree" instance=ExtResource("1_ue4fb")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="tree_leaves" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_esvof")

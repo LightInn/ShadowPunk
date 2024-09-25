@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://2dxtgyrw5n5m"]
+
+[ext_resource type="Shader" path="res://Shaders/pixelart-edges.gdshader" id="1_eidyw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3j48g"]
+render_priority = 0
+shader = ExtResource("1_eidyw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nir3b"]
+size = Vector2(4, 4)
+center_offset = Vector3(-1, 1, 0)
+
+[node name="PixelArtEdgesEffect" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_3j48g")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
+mesh = SubResource("QuadMesh_nir3b")
+skeleton = NodePath("")

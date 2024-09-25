@@ -1,0 +1,302 @@
+[gd_scene load_steps=43 format=3 uid="uid://ddloddlvuf5ls"]
+
+[ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="1_rhgp7"]
+[ext_resource type="Shader" path="res://Shaders/palette_limiter.gdshader" id="2_cwgur"]
+[ext_resource type="Texture2D" uid="uid://2wr211qe06fx" path="res://icon.svg" id="3_oxdxs"]
+[ext_resource type="Shader" path="res://Shaders/cloud.gdshader" id="4_78aw5"]
+[ext_resource type="PackedScene" uid="uid://ckrui6fwthrlp" path="res://Props/plaque.tscn" id="5_ldp8w"]
+[ext_resource type="Material" uid="uid://t1ekpyp3dl4t" path="res://Material/grass.tres" id="6_4sd1o"]
+[ext_resource type="PackedScene" uid="uid://b61owbtgpvmnd" path="res://Props/sakura.tscn" id="7_j7ll5"]
+[ext_resource type="PackedScene" uid="uid://dysgjpudrwixp" path="res://Props/pilone.tscn" id="8_timsq"]
+[ext_resource type="PackedScene" uid="uid://cxpl20rx43f8o" path="res://Props/crystal.tscn" id="9_ewa4q"]
+[ext_resource type="PackedScene" uid="uid://b6j8xbxkre6bm" path="res://Props/calm_ruins.tscn" id="10_n87mk"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="11_hoec8"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="12_34k3j"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="13_lm1a4"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="14_6qndw"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="15_w15gf"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="16_w3j2r"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="17_31kfq"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="18_mehod"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="19_nmxsh"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="20_uj2nu"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/path_shape.gd" id="21_gx0ql"]
+[ext_resource type="PackedScene" uid="uid://dd7hmir03og1" path="res://Props/tree.tscn" id="22_13oip"]
+[ext_resource type="PackedScene" uid="uid://cwwigoboexg6b" path="res://orbitCamera.tscn" id="22_w48ol"]
+[ext_resource type="PackedScene" uid="uid://33kxt0dop68y" path="res://directional_light.tscn" id="23_e5tp5"]
+[ext_resource type="Script" path="res://directional_light.gd" id="24_74buo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8s7rk"]
+shader = ExtResource("1_rhgp7")
+shader_parameter/opacity = 0.165
+shader_parameter/line_thickness = 1.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0vuta"]
+shader = ExtResource("2_cwgur")
+shader_parameter/color_1 = Color(0.09, 0.125, 0.22, 1)
+shader_parameter/color_2 = Color(0.145, 0.227, 0.369, 1)
+shader_parameter/color_3 = Color(0.235, 0.369, 0.545, 1)
+shader_parameter/color_4 = Color(0.31, 0.561, 0.729, 1)
+shader_parameter/color_5 = Color(0.451, 0.745, 0.827, 1)
+shader_parameter/color_6 = Color(0.643, 0.867, 0.859, 1)
+shader_parameter/color_7 = Color(0.098, 0.2, 0.176, 1)
+shader_parameter/color_8 = Color(0.145, 0.337, 0.18, 1)
+shader_parameter/color_9 = Color(0.275, 0.51, 0.196, 1)
+shader_parameter/color_10 = Color(0.459, 0.655, 0.263, 1)
+shader_parameter/color_11 = Color(0.659, 0.792, 0.345, 1)
+shader_parameter/color_12 = Color(0.816, 0.855, 0.569, 1)
+shader_parameter/color_13 = Color(0.302, 0.169, 0.196, 1)
+shader_parameter/color_14 = Color(0.478, 0.282, 0.255, 1)
+shader_parameter/color_15 = Color(0.678, 0.467, 0.341, 1)
+shader_parameter/color_16 = Color(0.753, 0.58, 0.451, 1)
+shader_parameter/color_17 = Color(0.843, 0.71, 0.58, 1)
+shader_parameter/color_18 = Color(0.906, 0.835, 0.702, 1)
+shader_parameter/color_19 = Color(0.204, 0.11, 0.153, 1)
+shader_parameter/color_20 = Color(0.376, 0.173, 0.173, 1)
+shader_parameter/color_21 = Color(0.533, 0.294, 0.169, 1)
+shader_parameter/color_22 = Color(0.745, 0.467, 0.169, 1)
+shader_parameter/color_23 = Color(0.871, 0.62, 0.255, 1)
+shader_parameter/color_24 = Color(0.91, 0.757, 0.439, 1)
+shader_parameter/color_25 = Color(0.141, 0.082, 0.153, 1)
+shader_parameter/color_26 = Color(0.255, 0.114, 0.192, 1)
+shader_parameter/color_27 = Color(0.459, 0.141, 0.22, 1)
+shader_parameter/color_28 = Color(0.647, 0.188, 0.188, 1)
+shader_parameter/color_29 = Color(0.812, 0.341, 0.235, 1)
+shader_parameter/color_30 = Color(0.855, 0.525, 0.243, 1)
+shader_parameter/color_31 = Color(0.118, 0.114, 0.224, 1)
+shader_parameter/color_32 = Color(0.251, 0.153, 0.318, 1)
+shader_parameter/color_33 = Color(0.478, 0.212, 0.482, 1)
+shader_parameter/color_34 = Color(0.635, 0.243, 0.549, 1)
+shader_parameter/color_35 = Color(0.776, 0.318, 0.592, 1)
+shader_parameter/color_36 = Color(0.875, 0.518, 0.647, 1)
+shader_parameter/color_362 = Color(0.875, 0.518, 0.647, 1)
+shader_parameter/color_37 = Color(0.035, 0.039, 0.078, 1)
+shader_parameter/color_38 = Color(0.063, 0.078, 0.122, 1)
+shader_parameter/color_39 = Color(0.082, 0.114, 0.157, 1)
+shader_parameter/color_40 = Color(0.125, 0.18, 0.216, 1)
+shader_parameter/color_41 = Color(0.224, 0.29, 0.314, 1)
+shader_parameter/color_42 = Color(0.341, 0.447, 0.467, 1)
+shader_parameter/color_43 = Color(0.506, 0.592, 0.588, 1)
+shader_parameter/color_44 = Color(0.659, 0.71, 0.698, 1)
+shader_parameter/color_45 = Color(0.78, 0.812, 0.8, 1)
+shader_parameter/color_46 = Color(0.922, 0.929, 0.914, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u1cd6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nn3in"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sywp7"]
+noise = SubResource("FastNoiseLite_nn3in")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ctsjw"]
+render_priority = 0
+shader = ExtResource("4_78aw5")
+shader_parameter/isSoft = true
+shader_parameter/speed = 0.03
+shader_parameter/brightness = 0.1
+shader_parameter/threshold = 1.536
+shader_parameter/fluffiness = 0.1
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_sywp7")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mm48w"]
+material = ExtResource("6_4sd1o")
+size = Vector2(64, 64)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_khtf5"]
+
+[sub_resource type="Resource" id="Resource_wuedt"]
+script = ExtResource("14_6qndw")
+amount = 15000
+enabled = true
+override_global_seed = true
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_wjekx"]
+script = ExtResource("15_w15gf")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_1j8r0"]
+script = ExtResource("16_w3j2r")
+iterations = 3
+offset_step = 0.1
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_ejule"]
+script = ExtResource("17_31kfq")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 1
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_acmt6"]
+script = ExtResource("12_34k3j")
+stack = Array[ExtResource("13_lm1a4")]([SubResource("Resource_wuedt"), SubResource("Resource_wjekx"), SubResource("Resource_1j8r0"), SubResource("Resource_ejule")])
+
+[sub_resource type="Resource" id="Resource_u7o06"]
+script = ExtResource("20_uj2nu")
+size = Vector3(64.6796, 1, 65.1565)
+
+[sub_resource type="Curve3D" id="Curve3D_rshja"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.4715, -2.76938e-05, -0.241333, 0, 0, 0, 0, 0, 0, -1.8067, -2.76938e-05, -0.472412, 0, 0, 0, 0, 0, 0, -1.85621, 0, -1.60157, 0, 0, 0, 0, 0, 0, -0.302216, -2.76938e-05, -1.35803, 0, 0, 0, 0, 0, 0, 3.11856, -2.76938e-05, -1.42026, 0, 0, 0, 0, 0, 0, 3.33914, -2.76938e-05, 0.162231, 0, 0, 0, 0, 0, 0, 2.30869, -2.76938e-05, 0.442566, 0, 0, 0, 0, 0, 0, 2.15942, -2.76938e-05, 0.523407, 0, 0, 0, 0, 0, 0, 2.00027, -2.76938e-05, 0.623657, 0, 0, 0, 0, 0, 0, 1.77463, -2.76938e-05, 2.36752, 0, 0, 0, 0, 0, 0, 0.786438, -2.76938e-05, 2.42328, 0, 0, 0, 0, 0, 0, 0.562866, -2.76938e-05, 4.23004, 0, 0, 0, 0, 0, 0, -2.12653, -2.76938e-05, 3.61212, 0, 0, 0, 0, 0, 0, -2.27014, -2.76938e-05, 1.58417),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 14
+
+[sub_resource type="Resource" id="Resource_4stcm"]
+script = ExtResource("21_gx0ql")
+closed = true
+thickness = 0.0
+curve = SubResource("Curve3D_rshja")
+
+[sub_resource type="Environment" id="Environment_4banh"]
+background_mode = 1
+background_color = Color(0.715652, 0.863228, 0.878856, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
+glow_normalized = true
+
+[node name="Calm" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 5
+material = SubResource("ShaderMaterial_8s7rk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="palette_limiter" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_0vuta")
+position = Vector2(962, 546)
+scale = Vector2(15.6367, 8.84375)
+texture = ExtResource("3_oxdxs")
+
+[node name="Map" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CloudGenerator" type="CSGMesh3D" parent="SubViewportContainer/SubViewport/Map"]
+transform = Transform3D(-53.9212, 0, 0, 0, 0.998708, 0, 0, 0, 36.3579, 1.35744, 26.6068, -0.643265)
+visible = false
+cast_shadow = 3
+mesh = SubResource("PlaneMesh_u1cd6")
+material = SubResource("ShaderMaterial_ctsjw")
+
+[node name="plaque" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("5_ldp8w")]
+transform = Transform3D(0.0511324, 0.0745887, -1.99795, -1.74724e-07, -1.99861, -0.0746131, -1.99935, 0.00190775, -0.0510968, -0.46384, 0.0454173, 0.610168)
+
+[node name="terrain" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00485992, -0.0691714, 0.0376291)
+layers = 3
+mesh = SubResource("PlaneMesh_mm48w")
+skeleton = NodePath("../../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/Map/terrain"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/Map/terrain/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_khtf5")
+
+[node name="sakura" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("7_j7ll5")]
+transform = Transform3D(0.473192, 0, -0.161521, 0, 0.5, 0, 0.161521, 0, 0.473192, -1.42879, -0.0136099, -4.45191)
+
+[node name="pillar" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("8_timsq")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -6.25068, 0.313691, 2.04502)
+
+[node name="Crystal" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("9_ewa4q")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.365589, 2.88109, 1.23689)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/Map/Crystal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0163679, 0)
+light_color = Color(0.782985, 0.909057, 0.884365, 1)
+light_specular = 1.5
+shadow_enabled = true
+shadow_blur = 0.0
+distance_fade_begin = 2932.8
+distance_fade_shadow = 2149.2
+distance_fade_length = 2339.6
+omni_attenuation = 0.755
+
+[node name="calm_ruins" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("10_n87mk")]
+transform = Transform3D(1.98557, 0, -0.239789, 0, 2, 0, 0.239789, 0, 1.98557, -20.5685, -0.0691714, -2.49808)
+visible = false
+
+[node name="ProtonScatter" type="Node3D" parent="SubViewportContainer/SubViewport/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0493441, 0)
+script = ExtResource("11_hoec8")
+modifier_stack = SubResource("Resource_acmt6")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="SubViewportContainer/SubViewport/Map/ProtonScatter"]
+script = ExtResource("18_mehod")
+source_scale_multiplier = 0.1
+override_cast_shadow = 0
+path = "res://Props/grass.tscn"
+
+[node name="ScatterShape" type="Node3D" parent="SubViewportContainer/SubViewport/Map/ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("19_nmxsh")
+shape = SubResource("Resource_u7o06")
+
+[node name="ScatterShape2" type="Node3D" parent="SubViewportContainer/SubViewport/Map/ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+script = ExtResource("19_nmxsh")
+negative = true
+shape = SubResource("Resource_4stcm")
+
+[node name="Orbit" parent="SubViewportContainer/SubViewport" instance=ExtResource("22_w48ol")]
+transform = Transform3D(1, 0, 0, 0, 0.882948, 0.469472, 0, -0.469472, 0.882948, 0, 2.06928, 0)
+
+[node name="Camera3D" parent="SubViewportContainer/SubViewport/Orbit" index="0"]
+transform = Transform3D(0.490496, -0.599715, 0.632262, 0.400366, 0.799511, 0.447759, -0.774029, 0.0335123, 0.632262, 17.2014, 19.0381, 23.8593)
+size = 16.958
+near = 0.001
+far = 175.0
+
+[node name="DirectionalLight" parent="." instance=ExtResource("23_e5tp5")]
+transform = Transform3D(0.600783, 0.56527, -0.56527, -8.43283e-10, 0.707107, 0.707107, 0.799412, -0.424818, 0.424818, 8.43944, 8.91763, 4.70438)
+light_color = Color(1, 1, 1, 1)
+light_energy = 1.0
+script = ExtResource("24_74buo")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4banh")
+
+[node name="tree" parent="." instance=ExtResource("22_13oip")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.53965, -0.0691714, 9.31387)
+
+[editable path="SubViewportContainer/SubViewport/Orbit"]

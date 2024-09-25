@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bab6uma4l2rvl"]
+
+[ext_resource type="Shader" path="res://Shaders/grass_blades.gdshader" id="1_tssqm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tssqm")
+shader_parameter/albedo = Color(0.85098, 0.941176, 0.45098, 1)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.169
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/backlight = Color(1, 1, 1, 1)
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 1.813
+shader_parameter/rim_color = Color(0.85098, 0.941176, 0.45098, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01

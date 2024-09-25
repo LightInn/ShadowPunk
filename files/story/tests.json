@@ -1,0 +1,354 @@
+{
+  "dialogue_id": "shop_interaction",
+  "characters": ["player", "shopkeeper", "mysterious_stranger"],
+  "variables": {
+	"gold": 100,
+	"has_sword": false,
+	"quest_completed": false
+  },
+  "nodes": {
+	"start": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Welcome to my shop, traveler! How may I assist you today?",
+		"fr": "Bienvenue dans ma boutique, voyageur ! Comment puis-je vous aider aujourd'hui ?"
+	  },
+	  "next": "main_menu"
+	},
+	"main_menu": {
+	  "type": "choice",
+	  "speaker": "player",
+	  "text": {
+		"en": "What would you like to do?",
+		"fr": "Que souhaitez-vous faire ?"
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"en": "I'd like to buy something",
+			"fr": "J'aimerais acheter quelque chose"
+		  },
+		  "next": "show_inventory"
+		},
+		{
+		  "text": {
+			"en": "Tell me about your wares",
+			"fr": "Parlez-moi de vos marchandises"
+		  },
+		  "next": "describe_wares"
+		},
+		{
+		  "text": {
+			"en": "I'm looking for information",
+			"fr": "Je cherche des informations"
+		  },
+		  "next": "ask_information",
+		  "condition": {
+			"type": "variable_check",
+			"variable": "quest_completed",
+			"value": true
+		  }
+		},
+		{
+		  "text": {
+			"en": "I'll be going now",
+			"fr": "Je vais y aller maintenant"
+		  },
+		  "next": "exit_shop"
+		}
+	  ]
+	},
+	"show_inventory": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Here's what I have for sale:",
+		"fr": "Voici ce que j'ai à vendre :"
+	  },
+	  "next": "inventory_choice"
+	},
+	"inventory_choice": {
+	  "type": "choice",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "What would you like to buy?",
+		"fr": "Que voulez-vous acheter ?"
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"en": "Sword (50 gold)",
+			"fr": "Épée (50 or)"
+		  },
+		  "next": "buy_sword",
+		  "condition": {
+			"type": "variable_check",
+			"variable": "gold",
+			"operator": ">=",
+			"value": 50
+		  }
+		},
+		{
+		  "text": {
+			"en": "Health Potion (30 gold)",
+			"fr": "Potion de santé (30 or)"
+		  },
+		  "next": "buy_potion",
+		  "condition": {
+			"type": "variable_check",
+			"variable": "gold",
+			"operator": ">=",
+			"value": 30
+		  }
+		},
+		{
+		  "text": {
+			"en": "Nothing, thanks",
+			"fr": "Rien, merci"
+		  },
+		  "next": "main_menu"
+		}
+	  ]
+	},
+	"buy_sword": {
+	  "type": "event",
+	  "events": [
+		{
+		  "type": "modify_variable",
+		  "variable": "gold",
+		  "operation": "subtract",
+		  "value": 50
+		},
+		{
+		  "type": "set_variable",
+		  "variable": "has_sword",
+		  "value": true
+		},
+		{
+		  "type": "add_inventory",
+		  "item": "sword",
+		  "quantity": 1
+		}
+	  ],
+	  "next": "sword_purchased"
+	},
+	"sword_purchased": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Here's your sword! Use it wisely.",
+		"fr": "Voici votre épée ! Utilisez-la avec sagesse."
+	  },
+	  "next": "main_menu"
+	},
+	"buy_potion": {
+	  "type": "event",
+	  "events": [
+		{
+		  "type": "modify_variable",
+		  "variable": "gold",
+		  "operation": "subtract",
+		  "value": 30
+		},
+		{
+		  "type": "add_inventory",
+		  "item": "health_potion",
+		  "quantity": 1
+		}
+	  ],
+	  "next": "potion_purchased"
+	},
+	"potion_purchased": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Here's your health potion. It might save your life one day!",
+		"fr": "Voici votre potion de santé. Elle pourrait vous sauver la vie un jour !"
+	  },
+	  "next": "main_menu"
+	},
+	"describe_wares": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "I have the finest swords and the most potent potions in all the land!",
+		"fr": "J'ai les meilleures épées et les potions les plus puissantes de tout le pays !"
+	  },
+	  "next": "main_menu"
+	},
+	"ask_information": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Ah, seeking information, are we? What would you like to know?",
+		"fr": "Ah, vous cherchez des informations ? Que voulez-vous savoir ?"
+	  },
+	  "next": "information_choice"
+	},
+	"information_choice": {
+	  "type": "choice",
+	  "speaker": "player",
+	  "text": {
+		"en": "I'd like to know about...",
+		"fr": "J'aimerais en savoir plus sur..."
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"en": "The ancient ruins",
+			"fr": "Les ruines anciennes"
+		  },
+		  "next": "ruins_info"
+		},
+		{
+		  "text": {
+			"en": "The mysterious stranger",
+			"fr": "L'étranger mystérieux"
+		  },
+		  "next": "stranger_appears",
+		  "condition": {
+			"type": "random_chance",
+			"probability": 0.5
+		  }
+		},
+		{
+		  "text": {
+			"en": "Never mind",
+			"fr": "Peu importe"
+		  },
+		  "next": "main_menu"
+		}
+	  ]
+	},
+	"ruins_info": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "The ancient ruins to the north are said to hold great treasures... and great dangers.",
+		"fr": "On dit que les ruines anciennes au nord recèlent de grands trésors... et de grands dangers."
+	  },
+	  "next": "main_menu"
+	},
+	"stranger_appears": {
+	  "type": "dialogue",
+	  "speaker": "mysterious_stranger",
+	  "text": {
+		"en": "Did someone mention me?",
+		"fr": "Quelqu'un m'a-t-il mentionné ?"
+	  },
+	  "next": "stranger_conversation"
+	},
+	"stranger_conversation": {
+	  "type": "choice",
+	  "speaker": "player",
+	  "text": {
+		"en": "How will you respond?",
+		"fr": "Comment allez-vous répondre ?"
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"en": "Who are you?",
+			"fr": "Qui êtes-vous ?"
+		  },
+		  "next": "stranger_identity"
+		},
+		{
+		  "text": {
+			"en": "What do you want?",
+			"fr": "Que voulez-vous ?"
+		  },
+		  "next": "stranger_purpose"
+		}
+	  ]
+	},
+	"stranger_identity": {
+	  "type": "dialogue",
+	  "speaker": "mysterious_stranger",
+	  "text": {
+		"en": "I am but a wanderer, seeking knowledge and adventure.",
+		"fr": "Je ne suis qu'un vagabond, à la recherche de connaissances et d'aventures."
+	  },
+	  "next": "main_menu"
+	},
+	"stranger_purpose": {
+	  "type": "dialogue",
+	  "speaker": "mysterious_stranger",
+	  "text": {
+		"en": "I have a quest for a brave soul. Are you interested?",
+		"fr": "J'ai une quête pour une âme brave. Êtes-vous intéressé ?"
+	  },
+	  "next": "quest_offer"
+	},
+	"quest_offer": {
+	  "type": "choice",
+	  "speaker": "player",
+	  "text": {
+		"en": "Will you accept the quest?",
+		"fr": "Accepterez-vous la quête ?"
+	  },
+	  "choices": [
+		{
+		  "text": {
+			"en": "Yes, I accept",
+			"fr": "Oui, j'accepte"
+		  },
+		  "next": "accept_quest"
+		},
+		{
+		  "text": {
+			"en": "No, thank you",
+			"fr": "Non, merci"
+		  },
+		  "next": "reject_quest"
+		}
+	  ]
+	},
+	"accept_quest": {
+	  "type": "event",
+	  "events": [
+		{
+		  "type": "start_quest",
+		  "quest_id": "mysterious_artifact"
+		},
+		{
+		  "type": "set_variable",
+		  "variable": "quest_accepted",
+		  "value": true
+		}
+	  ],
+	  "next": "quest_instructions"
+	},
+	"quest_instructions": {
+	  "type": "dialogue",
+	  "speaker": "mysterious_stranger",
+	  "text": {
+		"en": "Excellent! Seek the artifact in the ancient ruins. Return it to me for a great reward.",
+		"fr": "Excellent ! Cherchez l'artefact dans les ruines anciennes. Rapportez-le moi pour une grande récompense."
+	  },
+	  "next": "main_menu"
+	},
+	"reject_quest": {
+	  "type": "dialogue",
+	  "speaker": "mysterious_stranger",
+	  "text": {
+		"en": "Perhaps another time then. The offer remains open.",
+		"fr": "Peut-être une autre fois alors. L'offre reste ouverte."
+	  },
+	  "next": "main_menu"
+	},
+	"exit_shop": {
+	  "type": "dialogue",
+	  "speaker": "shopkeeper",
+	  "text": {
+		"en": "Thank you for visiting! Come back soon!",
+		"fr": "Merci de votre visite ! Revenez bientôt !"
+	  },
+	  "next": "end"
+	},
+	"end": {
+	  "type": "end"
+	}
+  }
+}
