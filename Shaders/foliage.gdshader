@@ -135,5 +135,5 @@ void fragment()
 	//albedo = vec3(COLOR.b,COLOR.b,COLOR.b);
 	ALBEDO = albedo;
 	ALPHA = alpha;
-	EMISSION = fres_col;
+	//EMISSION = fres_col;
 }

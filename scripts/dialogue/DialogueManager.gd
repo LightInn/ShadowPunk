@@ -55,7 +55,7 @@ func advance_dialogue():
 	if node.has("next"):
 		current_node = node["next"]
 	else:
-		print("Dialogue terminé")
+		print("Dont have a next node")
 
 func set_language(language: String):
 	if language in ["en", "fr"]:  # Ajoutez d'autres langues selon vos besoins

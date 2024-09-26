@@ -9,7 +9,7 @@ class_name Player
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
-@onready var interaction_area = $Area3D
+@onready var interaction_area = $InteractiveArea
 
 func _ready():
 	# Fixer la rotation de la caméra à un angle isométrique
@@ -53,9 +53,12 @@ func interact():
 	var interactables = interaction_area.get_overlapping_bodies()
 	for body in interactables:
 		if body.is_in_group("interactive"):
-			var dialogue_character = body.get_node("DialogueCharacter")
-			if dialogue_character and dialogue_character.has_method("interact"):
-				var distance = global_position.distance_to(body.global_position)
-				if distance <= interaction_distance:
-					dialogue_character.interact(self)
-					break  # Interagir seulement avec le premier NPC à portée
+			body.interact(self)
+			
+			
+			#var dialogue_character = body.get_node("DialogueCharacter")
+			#if dialogue_character and dialogue_character.has_method("interact"):
+				#var distance = global_position.distance_to(body.global_position)
+				#if distance <= interaction_distance:
+					#dialogue_character.interact(self)
+					#break  # Interagir seulement avec le premier NPC à portée

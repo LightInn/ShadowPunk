@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ShadowPunk"
-run/main_scene="res://Levels/calm.tscn"
+run/main_scene="res://Levels/dialogueproto.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 

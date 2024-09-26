@@ -1,112 +1,58 @@
 shader_type spatial;
+render_mode diffuse_toon, specular_toon;
 
-//render_mode ambient_light_disabled;
-render_mode cull_disabled;
+uniform vec3 albedo : source_color = vec3(0.81, 0.95, 0.27);
+uniform float ambient_light : hint_range(0.0, 1.0) = 0.1;
 
-uniform vec4 albedo : source_color = vec4(0.85,0.94,0.45,1.0f);
-uniform sampler2D albedo_texture : source_color;
-uniform bool clamp_diffuse_to_max = false;
 
-uniform int cuts : hint_range(1, 8) = 3;
-uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
-uniform float steepness : hint_range(1.0f, 8.0f) = 1.0f;
-
-uniform bool use_attenuation = true;
-
-uniform bool use_specular = true;
-uniform float specular_strength : hint_range(0.0f, 1.0f) = 1.0f;
-uniform float specular_shininess : hint_range(0.0f, 32.0f) = 16.0f;
-uniform sampler2D specular_map : source_color;
-
-uniform vec4 backlight : source_color;
-
-uniform bool use_rim = true;
-uniform float rim_width : hint_range(0.0f, 16.0f) = 8.0f;
-uniform vec4 rim_color : source_color = vec4(1.0f);
-
-uniform bool use_ramp = false;
-uniform sampler2D ramp : source_color;
-
-uniform bool use_borders = false;
-uniform float border_width = 0.01f;
-
-varying vec3 vertex_pos;
-varying vec3 normal;
-
-float split_specular(float specular) {
-	return step(0.5f, specular);
-}
-
+uniform float collapse_factor : hint_range(0.0, 1.0) = 1.0;
 void vertex() {
-	vertex_pos = VERTEX;
-	normal = NORMAL;
-
-	//NORMAL = vec3(0.0, 1.0, 0.0);
-	//VERTEX.x += sin(NODE_POSITION_WORLD.x + TIME ) * ( 5.0 ) * 0.2;
-	//VERTEX.z += cos(NODE_POSITION_WORLD.z + TIME) * ( 5.0 ) * 0.15;
+    // Calculer un facteur basé sur la hauteur du vertex
+    float height_factor = smoothstep(1.0, 10.0, VERTEX.y);
+    
+    // Amplitude de base du mouvement
+    float base_amplitude_x = 5.0 * 0.2;
+    float base_amplitude_z = 5.0 * 0.15;
+    
+    // Appliquer le mouvement avec une amplitude modulée par la hauteur
+    VERTEX.x += sin(NODE_POSITION_WORLD.x + TIME) * base_amplitude_x * (0.0 + height_factor);
+    VERTEX.z += cos(NODE_POSITION_WORLD.z + TIME) * base_amplitude_z * (0.0 + height_factor);
+	
+	VERTEX = mix(VERTEX,  vec3(0.0, 0.0, 0.0), collapse_factor);
 }
-
 
 void fragment() {
-	ALBEDO = albedo.rgb * texture(albedo_texture, UV).rgb;
+    ALBEDO = albedo;
 
-	// Backlight: Enabled
-	BACKLIGHT = (backlight.rgb);
+	RIM = 0.;
+	
 }
 
 void light() {
-	// Attenuation.
-	float attenuation = 1.0f;
-	if (use_attenuation) {
-		attenuation = ATTENUATION;
-	}
-
-	// Diffuse lighting.
-	float NdotL = dot(NORMAL, LIGHT);
-	float diffuse_amount = NdotL + (attenuation - 1.0) + wrap;
-	//float diffuse_amount = NdotL * attenuation + wrap;
-	diffuse_amount *= steepness;
-	float cuts_inv = 1.0f / float(cuts);
-	float diffuse_stepped = clamp(diffuse_amount + mod(1.0f - diffuse_amount, cuts_inv), 0.0f, 1.0f);
-
-	// Calculate borders.
-	float border = 0.0f;
-	if (use_borders) {
-		float corr_border_width = length(cross(NORMAL, LIGHT)) * border_width * steepness;
-		border = step(diffuse_stepped - corr_border_width, diffuse_amount)
-				 - step(1.0 - corr_border_width, diffuse_amount);
-	}
-
-	// Apply diffuse result to different styles.
-	vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
-	if (use_ramp) {
-		diffuse *= texture(ramp, vec2(diffuse_stepped * (1.0f - border), 0.0f)).rgb;
-	} else {
-		diffuse *= diffuse_stepped * (1.0f - border);
-	}
-
-	if (clamp_diffuse_to_max) {
-		// Clamp diffuse to max for multiple light sources.
-		DIFFUSE_LIGHT = max(DIFFUSE_LIGHT, diffuse);
-	} else {
-		DIFFUSE_LIGHT += diffuse;
-	}
-
-	// Specular lighting.
-	if (use_specular) {
-		vec3 H = normalize(LIGHT + VIEW);
-		float NdotH = dot(NORMAL, H);
-		float specular_amount = max(pow(NdotH, specular_shininess*specular_shininess), 0.0f)
-							    * texture(specular_map, UV).r
-								* attenuation;
-		specular_amount = split_specular(specular_amount);
-		SPECULAR_LIGHT += specular_strength * specular_amount * LIGHT_COLOR;
-	}
-
-	// Simple rim lighting.
-	if (use_rim) {
-		float NdotV = dot(NORMAL, VIEW);
-		float rim_light = pow(1.0 - NdotV, rim_width);
-		SPECULAR_LIGHT += rim_light * rim_color.rgb * rim_color.a * LIGHT_COLOR / PI; //Changed DIFFUSE_LIGHT to SPECULAR_LIGHT while migrating for similar result
-	}
+    // Calculer la position du centre de l'objet dans l'espace vue
+    vec3 view_center = (INV_VIEW_MATRIX * MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+    
+    // Calculer l'atténuation basée sur la distance au centre de l'objet
+    float dist = length(view_center - LIGHT);
+    float custom_attenuation = 1.0 / (1.0 + dist * dist);
+    
+    // Si c'est une lumière directionnelle, on ignore l'atténuation basée sur la distance
+    if (LIGHT_IS_DIRECTIONAL) {
+        custom_attenuation = 1.0;
+    }
+    
+    // Combiner avec l'atténuation fournie par Godot (pour les ombres, etc.)
+    custom_attenuation *= ATTENUATION;
+    
+    // Calculer la contribution de la lumière
+    vec3 light_contribution = ALBEDO * custom_attenuation * LIGHT_COLOR;
+    
+    // Ajouter la lumière ambiante
+    //vec3 ambient = ALBEDO * ambient_light;
+    
+    // Combiner la contribution de la lumière et la lumière ambiante, puis clamp
+    DIFFUSE_LIGHT += clamp(light_contribution, vec3(0.0), vec3(0.816));
+	//DIFFUSE_LIGHT = vec3(0.);
+	
+	    // Calculer la position du centre de l'objet dans l'espace vue
 }

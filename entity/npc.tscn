@@ -25,6 +25,7 @@ shape = SubResource("SphereShape3D_0xif3")
 [node name="DialogueCharacter" type="Node" parent="."]
 script = ExtResource("2_jvarp")
 dialogue_file = "res://files/story/tests.json"
+bubble_height = 1.0
 
 [node name="AdvancedFloatingBubble" parent="DialogueCharacter" instance=ExtResource("3_tu4fw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.176098)
