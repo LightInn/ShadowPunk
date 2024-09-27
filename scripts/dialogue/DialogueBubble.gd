@@ -3,10 +3,13 @@ class_name DialogueBubble
 
 @onready var viewport = $SubViewport
 @onready var nine_patch_rect = $SubViewport/Bubble/Background
-@onready var label = $SubViewport/Bubble/Content/Body/Message/Label
 @onready var bubble = $SubViewport/Bubble
 @onready var sprite = $Sprite3D
-@onready var pointer_sprite = $PointerSprite3D
+@onready var pointer_sprite = $Sprite3D/PointerSprite3D
+
+@onready var label = $SubViewport/Bubble/Content/Body/Message/Label
+@onready var speaker_label = $SubViewport/Bubble/Content/Header/SpeakerLabel
+@onready var speaker_icon = $SubViewport/Bubble/Content/Header/SpeakerIcon
 
 var target_size : Vector2
 var current_size : Vector2
@@ -51,7 +54,7 @@ func _process(delta):
 	
 	var new_position = lerp(sprite.position, target_position, MOVING_SPEED * delta)
 	update_position(new_position)
-	#update_visibility()
+	#update_visibility()s
 
 func update_text(delta: float):
 	if _current_char_index < target_text.length():
@@ -130,7 +133,7 @@ func hide_bubble():
 
 func set_dialogue(dialogue: Dictionary):
 	
-	
+	speaker_label.text = dialogue.speaker
 	target_text = dialogue.text
 	current_text = ""
 	_current_char_index = 0
