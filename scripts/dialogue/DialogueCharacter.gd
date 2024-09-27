@@ -30,19 +30,19 @@ func _ready():
 func start_dialogue():
 	DM.reset_dialogue()
 	var dialogue = DM.get_current_dialogue()
-	set_player(player)
 	display_dialogue(dialogue)
 
 func display_dialogue(dialogue: Dictionary):
 	dialogue_ui.display_dialogue(dialogue)
 	dialogue_ui.show()
 	
-	if dialogue.type == "dialogue":
+	if dialogue.type == "dialogue" or dialogue.type == "choice":
+		
+		var target : Node3D = player if dialogue.speaker == "player" else owner;
+		
 		floating_bubble.set_text(dialogue.text)
-		floating_bubble.show_bubble()
-	elif dialogue.type == "choice":
-		floating_bubble.set_text(dialogue.text)
-		floating_bubble.show_bubble()
+		floating_bubble.show_bubble(target.position)
+
 	else:
 		floating_bubble.hide_bubble()
 
@@ -64,6 +64,7 @@ func end_dialogue():
 	floating_bubble.hide_bubble()
 
 func interact(player : Player):
+	set_player(player)
 	if DM.is_dialogue_finished():
 		start_dialogue()
 	else : 

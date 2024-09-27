@@ -1,8 +1,9 @@
 extends Node3D
+class_name DialogueBubble
 
 @onready var viewport = $SubViewport
 @onready var nine_patch_rect = $SubViewport/Bubble/NinePatchRect
-@onready var label = $SubViewport/Bubble/MarginContainer/Label
+@onready var label = $SubViewport/Bubble/Content/Body/Message/Label
 @onready var sprite = $Sprite3D
 @onready var pointer_sprite = $PointerSprite3D
 
@@ -12,10 +13,13 @@ var resize_speed : float = 5.0
 var writing_speed : float = 20.0
 var current_text : String = ""
 var target_text : String = ""
+var target_position : Vector3 = Vector3(0,0,0)
+
 @export var vertical_offset : float = 2.0
 @export var max_visibility_distance : float = 10.0
 @export var min_visibility_distance : float = 1.0
 @export var visibility_angle : float = 60.0  # En degrés
+@export var MOVING_SPEED : float = 5.0
 
 var player : Node3D  # Référence au joueur
 
@@ -24,7 +28,7 @@ func _ready():
 	current_size = Vector2(300, 200)
 	viewport.size = current_size
 	sprite.pixel_size = 0.01  # Ajustez selon vos besoins
-	update_position()
+	update_position(target_position)
 
 func set_player(player_node : Node3D):
 	player = player_node
@@ -41,11 +45,12 @@ func _process(delta):
 		current_text += target_text[next_char_index]
 		label.text = current_text
 	
-	update_position()
+	var new_position = lerp(sprite.position, target_position, MOVING_SPEED * delta)
+	update_position(new_position)
 	update_visibility()
 
-func update_position():
-	sprite.position = owner.position
+func update_position(position : Vector3):
+	sprite.position = position
 	sprite.position.y = vertical_offset
 	pointer_sprite.position.y = vertical_offset - (current_size.y * sprite.pixel_size / 2)
 
@@ -69,14 +74,17 @@ func update_visibility():
 		return
 	
 	# Si on arrive ici, la bulle devrait être visible
-	show_bubble()
+	show_bubble(target_position)
 	
 	# Ajuster l'opacité en fonction de la distance
 	var opacity = 1.0 - (distance - min_visibility_distance) / (max_visibility_distance - min_visibility_distance)
 	sprite.modulate.a = opacity
 	pointer_sprite.modulate.a = opacity
 
-func show_bubble():
+func show_bubble(position : Vector3):
+	
+	target_position = position
+	
 	if not visible:
 		visible = true
 		var tween = create_tween()
@@ -97,7 +105,7 @@ func set_text(new_text: String):
 	# Calculer la taille cible
 	label.text = new_text
 	await get_tree().process_frame
-	target_size = label.size + Vector2(50, 50)  # Ajouter de la marge
+	target_size = label.size + Vector2(50, 200)  # Ajouter de la marge
 	
 	# Réinitialiser le texte pour l'animation
 	label.text = ""
