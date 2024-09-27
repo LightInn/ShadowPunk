@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://2wr211qe06fx" path="res://icon.svg" id="2_t66tt"]
 
 [node name="Bubble" type="MarginContainer"]
-offset_right = 46.0
-offset_bottom = 44.0
+offset_right = 189.0
+offset_bottom = 128.0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
 texture_filter = 5
 layout_mode = 2
 texture = ExtResource("1_y2voj")
@@ -16,8 +16,6 @@ patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -48,11 +46,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Welcome to my shop, traveler! How may I assist you today? "
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NextIndicator" type="Label" parent="Content/Body/Message"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "next"

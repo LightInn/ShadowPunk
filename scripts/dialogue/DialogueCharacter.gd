@@ -40,7 +40,7 @@ func display_dialogue(dialogue: Dictionary):
 		
 		var target : Node3D = player if dialogue.speaker == "player" else owner;
 		
-		floating_bubble.set_text(dialogue.text)
+		floating_bubble.set_dialogue(dialogue)
 		floating_bubble.show_bubble(target.position)
 
 	else:
