@@ -23,7 +23,7 @@
 		"en": "Hello shopkeeper !",
 		"fr": "Bonjour gardeur de boutique !"
 	  },
-	  "next": "start"
+	  "next": "main_menu"
 	},
 	"main_menu": {
 	  "type": "choice",

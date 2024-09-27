@@ -12,15 +12,16 @@ script = ExtResource("1_...")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(300, 200)
 
 [node name="Bubble" parent="SubViewport" instance=ExtResource("2_0k5pi")]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 1
+texture_filter = 4
 texture = SubResource("2ssxv")
 
-[node name="PointerSprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+[node name="PointerSprite3D" type="Sprite3D" parent="Sprite3D"]
 billboard = 1
 texture = ExtResource("2_...")
