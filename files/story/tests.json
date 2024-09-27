@@ -14,7 +14,16 @@
 		"en": "Welcome to my shop, traveler! How may I assist you today?",
 		"fr": "Bienvenue dans ma boutique, voyageur ! Comment puis-je vous aider aujourd'hui ?"
 	  },
-	  "next": "main_menu"
+	  "next": "hello"
+	},
+	"hello": {
+	"type": "dialogue",
+	  "speaker": "player",
+	  "text": {
+		"en": "Hello shopkeeper !",
+		"fr": "Bonjour gardeur de boutique !"
+	  },
+	  "next": "start"
 	},
 	"main_menu": {
 	  "type": "choice",

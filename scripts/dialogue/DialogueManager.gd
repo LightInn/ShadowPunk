@@ -14,7 +14,7 @@ func load_dialogue(file_path: String):
 		var json_result = JSON.parse_string(json_content)
 		if json_result != null:
 			dialogue_data = json_result
-			current_node = "start"
+			current_node = "end"
 		else:
 			print("Erreur de parsing JSON")
 	else:
@@ -86,4 +86,5 @@ func end_dialogue():
 # Ne réinitialisez pas ici, car cela pourrait interférer avec d'autres logiques
 
 func is_dialogue_finished() -> bool:
+	# CHECK IF THE DIALOGUE FILE IS LOADED FIRST ....	
 	return current_node == "end" or not dialogue_data["nodes"].has(current_node)

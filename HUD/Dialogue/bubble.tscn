@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr6ph1rp3bc38"]
+[gd_scene load_steps=3 format=3 uid="uid://dr6ph1rp3bc38"]
 
 [ext_resource type="Texture2D" uid="uid://dt1mucrhd0lcs" path="res://Textures/Dialogue/bubble-bg.png" id="1_y2voj"]
+[ext_resource type="Texture2D" uid="uid://2wr211qe06fx" path="res://icon.svg" id="2_t66tt"]
 
 [node name="Bubble" type="MarginContainer"]
 offset_right = 46.0
 offset_bottom = 44.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 5
 layout_mode = 2
 texture = ExtResource("1_y2voj")
 region_rect = Rect2(8, 8, 15, 16)
@@ -14,20 +16,48 @@ patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="SpeakerIcon" type="TextureRect" parent="Content/Header"]
+layout_mode = 2
+texture = ExtResource("2_t66tt")
+
+[node name="SpeakerLabel" type="Label" parent="Content/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "grgrgrg"
+
+[node name="Body" type="MarginContainer" parent="Content"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Message" type="HBoxContainer" parent="Content/Body"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Content/Body/Message"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Welcome to my shop, traveler! How may I assist you today? "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NextIndicator" type="Label" parent="Content/Body/Message"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "next"
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="Content"]
+layout_mode = 2
 
 [node name="Timer" type="Timer" parent="."]
