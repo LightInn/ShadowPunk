@@ -26,6 +26,6 @@ script = ExtResource("2_jvarp")
 dialogue_file = "res://files/story/tests.json"
 
 [node name="AdvancedFloatingBubble" parent="DialogueCharacter" instance=ExtResource("3_tu4fw")]
-vertical_offset = 600.0
+vertical_offset = -0.39
 
 [node name="DialogueUI" parent="DialogueCharacter" instance=ExtResource("3_dhtjv")]
