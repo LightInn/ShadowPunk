@@ -1,6 +1,8 @@
 extends Node3D
 class_name DialogueBubble
 
+signal choice_made(choice_index: int)
+
 @onready var viewport = $SubViewport
 @onready var nine_patch_rect = $SubViewport/Bubble/Background
 @onready var bubble = $SubViewport/Bubble
@@ -10,6 +12,7 @@ class_name DialogueBubble
 @onready var label = $SubViewport/Bubble/Content/Body/Message/Label
 @onready var speaker_label = $SubViewport/Bubble/Content/Header/SpeakerLabel
 @onready var speaker_icon = $SubViewport/Bubble/Content/Header/SpeakerIcon
+@onready var next_indicator = $SubViewport/Bubble/Content/Body/Message/NextIndicator
 
 var target_size : Vector2
 var current_size : Vector2
@@ -133,13 +136,17 @@ func hide_bubble():
 
 func set_dialogue(dialogue: Dictionary):
 	
+	if dialogue.type == "choice":
+		setup_choices(dialogue.choices if "choices" in dialogue else [], bubble)
+	
+	
 	speaker_label.text = dialogue.speaker
 	target_text = dialogue.text
 	current_text = ""
 	_current_char_index = 0
 	_text_timer = 0.0
 	
-	calculate_target_size()
+	calculate_target_size(dialogue)
 	# Réinitialiser le texte pour l'animation
 	label.text = current_text
 	
@@ -147,7 +154,7 @@ func set_dialogue(dialogue: Dictionary):
 
 
 
-func calculate_target_size():
+func calculate_target_size(dialogue: Dictionary):
 	
 	# Créer un label temporaire pour calculer la taille
 	var temp_bubble = bubble.duplicate()
@@ -162,8 +169,36 @@ func calculate_target_size():
 	self.add_child(temp_bubble)
 	temp_bubble.get_node("Content/Body/Message/Label").text = target_text
 	temp_bubble.get_node("Background").custom_minimum_size = Vector2(0,0)
+	if dialogue.type == "choice":
+		setup_choices(dialogue.choices if "choices" in dialogue else [], temp_bubble)
+	
 	await get_tree().process_frame
 	
 	target_size = temp_bubble.size;
 	remove_child(temp_bubble)
 	temp_bubble.queue_free()
+	
+
+
+func setup_choices(choices: Array, bubble : Container, real : bool):
+	
+	var choice_container = bubble.get_node("Content/ChoiceContainer")
+	
+	if choices.is_empty():
+		choice_container.hide()
+		return
+
+	
+	for child in choice_container.get_children():
+		child.queue_free()
+	
+	
+	for choice in choices:
+		var button = Button.new()
+		button.text = choice.text
+		button.connect("pressed", func(): choice_made.emit(choice))
+		choice_container.add_child(button)
+		
+	choice_container.show()
+	await get_tree().process_frame
+	
