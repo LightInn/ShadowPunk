@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entity/npc.gd" id="1_ecnmg"]
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueCharacter.gd" id="2_jvarp"]
 [ext_resource type="PackedScene" uid="uid://6er8qnse5vx2" path="res://HUD/Dialogue/DialogueUI.tscn" id="3_dhtjv"]
-[ext_resource type="PackedScene" uid="uid://ddfhbn7keklu" path="res://HUD/Dialogue/AdvFloatingBubble.tscn" id="3_tu4fw"]
+[ext_resource type="PackedScene" uid="uid://ddfhbn7keklu" path="res://HUD/Dialogue/DialogueBubble.tscn" id="3_tu4fw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekdid"]
 albedo_color = Color(5.48691e-06, 0.74474, 0.380676, 1)
@@ -25,7 +25,7 @@ shape = SubResource("SphereShape3D_0xif3")
 script = ExtResource("2_jvarp")
 dialogue_file = "res://files/story/tests.json"
 
-[node name="AdvancedFloatingBubble" parent="DialogueCharacter" instance=ExtResource("3_tu4fw")]
+[node name="DialogueBubble" parent="DialogueCharacter" instance=ExtResource("3_tu4fw")]
 vertical_offset = -0.39
 
 [node name="DialogueUI" parent="DialogueCharacter" instance=ExtResource("3_dhtjv")]
