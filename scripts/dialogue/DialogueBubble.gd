@@ -137,7 +137,7 @@ func hide_bubble():
 func set_dialogue(dialogue: Dictionary):
 	
 	if dialogue.type == "choice":
-		setup_choices(dialogue.choices if "choices" in dialogue else [], bubble)
+		setup_choices(dialogue.choices if "choices" in dialogue else [], bubble, true)
 	
 	
 	speaker_label.text = dialogue.speaker
@@ -170,7 +170,7 @@ func calculate_target_size(dialogue: Dictionary):
 	temp_bubble.get_node("Content/Body/Message/Label").text = target_text
 	temp_bubble.get_node("Background").custom_minimum_size = Vector2(0,0)
 	if dialogue.type == "choice":
-		setup_choices(dialogue.choices if "choices" in dialogue else [], temp_bubble)
+		setup_choices(dialogue.choices if "choices" in dialogue else [], temp_bubble,false)
 	
 	await get_tree().process_frame
 	
@@ -180,7 +180,7 @@ func calculate_target_size(dialogue: Dictionary):
 	
 
 
-func setup_choices(choices: Array, bubble : Container, real : bool):
+func setup_choices(choices: Array, bubble : Container, is_real : bool):
 	
 	var choice_container = bubble.get_node("Content/ChoiceContainer")
 	
@@ -198,7 +198,12 @@ func setup_choices(choices: Array, bubble : Container, real : bool):
 		button.text = choice.text
 		button.connect("pressed", func(): choice_made.emit(choice))
 		choice_container.add_child(button)
+	
+	if is_real :
+		var first_button : Button = choice_container.get_child(0)
+		first_button.grab_focus()
 		
+	
 	choice_container.show()
 	await get_tree().process_frame
 	
