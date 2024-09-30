@@ -13,7 +13,7 @@ script = ExtResource("1_...")
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(300, 200)
+size = Vector2i(2, 512)
 
 [node name="Bubble" parent="SubViewport" instance=ExtResource("2_0k5pi")]
 
@@ -23,5 +23,6 @@ texture_filter = 4
 texture = SubResource("2ssxv")
 
 [node name="PointerSprite3D" type="Sprite3D" parent="Sprite3D"]
+visible = false
 billboard = 1
 texture = ExtResource("2_...")
