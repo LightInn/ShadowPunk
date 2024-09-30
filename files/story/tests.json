@@ -27,7 +27,7 @@
 	},
 	"main_menu": {
 	  "type": "choice",
-	  "speaker": "player",
+	  "speaker": "shopkeeper",
 	  "text": {
 		"en": "What would you like to do?",
 		"fr": "Que souhaitez-vous faire ?"

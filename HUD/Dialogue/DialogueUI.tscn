@@ -1,59 +1,87 @@
-[gd_scene load_steps=2 format=3 uid="uid://6er8qnse5vx2"]
+[gd_scene load_steps=7 format=3 uid="uid://6er8qnse5vx2"]
 
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueUI.gd" id="1_..."]
+[ext_resource type="FontFile" uid="uid://dop2puon88mty" path="res://HUD/PixelifySans-Regular.ttf" id="1_lassp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iob0w"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.113725, 0.329412, 1, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iusjr"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5qq7"]
+bg_color = Color(0, 0.638007, 0.946242, 1)
+
+[sub_resource type="Theme" id="Theme_x5772"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.0970552, 0.493507, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 50
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_lassp")
+Button/styles/focus = SubResource("StyleBoxFlat_iob0w")
+Button/styles/hover = SubResource("StyleBoxFlat_iusjr")
+Button/styles/normal = SubResource("StyleBoxFlat_iusjr")
+Button/styles/pressed = SubResource("StyleBoxFlat_g5qq7")
+VBoxContainer/constants/separation = 24
 
 [node name="DialogueUI" type="Control"]
+texture_filter = 5
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_x5772")
 script = ExtResource("1_...")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -200.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -66.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
-
-[node name="SpeakerName" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Speaker Name"
-
-[node name="DialogueText" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Dialogue text goes here..."
-autowrap_mode = 3
-
-[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer/ChoicesContainer"]
-layout_mode = 2
-text = "test"
-
-[node name="NextButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Next"

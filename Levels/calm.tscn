@@ -108,7 +108,7 @@ size = Vector2(64, 64)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_khtf5"]
 
-[sub_resource type="Resource" id="Resource_mb6le"]
+[sub_resource type="Resource" id="Resource_0iyih"]
 script = ExtResource("14_6qndw")
 amount = 15000
 enabled = true
@@ -117,7 +117,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_pkmhv"]
+[sub_resource type="Resource" id="Resource_q80o8"]
 script = ExtResource("15_w15gf")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(20, 360, 20)
@@ -128,7 +128,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_imi2q"]
+[sub_resource type="Resource" id="Resource_3dw2s"]
 script = ExtResource("16_w3j2r")
 iterations = 3
 offset_step = 0.1
@@ -140,7 +140,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_law70"]
+[sub_resource type="Resource" id="Resource_nj4he"]
 script = ExtResource("17_31kfq")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -156,9 +156,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_wlwj0"]
+[sub_resource type="Resource" id="Resource_oovcj"]
 script = ExtResource("12_34k3j")
-stack = Array[ExtResource("13_lm1a4")]([SubResource("Resource_mb6le"), SubResource("Resource_pkmhv"), SubResource("Resource_imi2q"), SubResource("Resource_law70")])
+stack = Array[ExtResource("13_lm1a4")]([SubResource("Resource_0iyih"), SubResource("Resource_q80o8"), SubResource("Resource_3dw2s"), SubResource("Resource_nj4he")])
 
 [sub_resource type="Resource" id="Resource_u7o06"]
 script = ExtResource("20_uj2nu")
@@ -254,12 +254,11 @@ omni_attenuation = 0.755
 
 [node name="calm_ruins" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("10_n87mk")]
 transform = Transform3D(1.98557, 0, -0.239789, 0, 2, 0, 0.239789, 0, 1.98557, -20.5685, -0.0691714, -2.49808)
-visible = false
 
 [node name="ProtonScatter" type="Node3D" parent="SubViewportContainer/SubViewport/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0493441, 0)
 script = ExtResource("11_hoec8")
-modifier_stack = SubResource("Resource_wlwj0")
+modifier_stack = SubResource("Resource_oovcj")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 

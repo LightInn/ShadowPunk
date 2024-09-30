@@ -9,10 +9,11 @@ signal choice_made(choice_index: int)
 @onready var sprite = $Sprite3D
 @onready var pointer_sprite = $Sprite3D/PointerSprite3D
 
-@onready var label = $SubViewport/Bubble/Content/Body/Message/Label
+@onready var label : Label = $SubViewport/Bubble/Content/Body/Message/Label
 @onready var speaker_label = $SubViewport/Bubble/Content/Header/SpeakerLabel
 @onready var speaker_icon = $SubViewport/Bubble/Content/Header/SpeakerIcon
 @onready var next_indicator = $SubViewport/Bubble/Content/Body/Message/NextIndicator
+@onready var BubbleUI = preload("res://HUD/Dialogue/bubble.tscn")
 
 var target_size : Vector2
 var current_size : Vector2
@@ -29,6 +30,7 @@ var _current_char_index: int = 0
 @export var min_visibility_distance : float = 1.0
 @export var visibility_angle : float = 60.0  # En degrés
 @export var MOVING_SPEED : float = 5.0
+@export var MAX_WIDE_SIZE : float = 450
 
 @export var text_speed: float = 0.015  # Vitesse pour les caractères normaux
 @export var space_speed: float = 0.03  # Vitesse pour les espaces
@@ -38,8 +40,10 @@ var player : Node3D  # Référence au joueur
 
 
 func _ready():
+	hide_bubble()
 	current_size = Vector2(0, 0)
 	viewport.size = current_size
+	bubble.size = current_size
 	sprite.pixel_size = 0.01  # Ajustez selon vos besoins
 	update_position(target_position)
 
@@ -47,9 +51,15 @@ func set_player(player_node : Node3D):
 	player = player_node
 
 func _process(delta):
+	
 		# Animer le redimensionnement
 	current_size = current_size.lerp(target_size, resize_speed * delta)
-	viewport.size = current_size
+	
+	label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if target_text.length() > 30 :
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	viewport.size = current_size + Vector2(8,8)
+	bubble.size = current_size
 	nine_patch_rect.custom_minimum_size = current_size
 	
 	# Appeler la nouvelle fonction d'animation de texte
@@ -84,7 +94,7 @@ func get_char_speed(char: String) -> float:
 func update_position(position : Vector3):
 	sprite.position = position
 	sprite.position.y = vertical_offset
-	pointer_sprite.position.y = vertical_offset - (current_size.y * sprite.pixel_size / 2)
+	#pointer_sprite.position.y = vertical_offset - (current_size.y * sprite.pixel_size / 2)
 
 func update_visibility():
 	if not player:
@@ -136,8 +146,8 @@ func hide_bubble():
 
 func set_dialogue(dialogue: Dictionary):
 	
-	if dialogue.type == "choice":
-		setup_choices(dialogue.choices if "choices" in dialogue else [], bubble, true)
+	#if dialogue.type == "choice":
+		#setup_choices(dialogue.choices if "choices" in dialogue else [], bubble, true)
 	
 	
 	speaker_label.text = dialogue.speaker
@@ -157,7 +167,7 @@ func set_dialogue(dialogue: Dictionary):
 func calculate_target_size(dialogue: Dictionary):
 	
 	# Créer un label temporaire pour calculer la taille
-	var temp_bubble = bubble.duplicate()
+	var temp_bubble : Container = BubbleUI.instantiate()
 	
 	
 	# Size id not updated if not visible
@@ -166,11 +176,20 @@ func calculate_target_size(dialogue: Dictionary):
 	temp_bubble.size_flags_horizontal = 4
 	temp_bubble.size_flags_vertical = 4
 	
+	
 	self.add_child(temp_bubble)
-	temp_bubble.get_node("Content/Body/Message/Label").text = target_text
+	var temp_label : Label = temp_bubble.get_node("Content/Body/Message/Label")
+	temp_label.custom_minimum_size = Vector2(0,0)
+	temp_label.text = target_text
+	
+	
+	if target_text.length() > 30:
+		temp_label.custom_minimum_size.x = MAX_WIDE_SIZE
+		temp_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	
 	temp_bubble.get_node("Background").custom_minimum_size = Vector2(0,0)
-	if dialogue.type == "choice":
-		setup_choices(dialogue.choices if "choices" in dialogue else [], temp_bubble,false)
+	#if dialogue.type == "choice":
+		#setup_choices(dialogue.choices if "choices" in dialogue else [], temp_bubble,false)
 	
 	await get_tree().process_frame
 	
@@ -180,30 +199,28 @@ func calculate_target_size(dialogue: Dictionary):
 	
 
 
-func setup_choices(choices: Array, bubble : Container, is_real : bool):
-	
-	var choice_container = bubble.get_node("Content/ChoiceContainer")
-	
-	if choices.is_empty():
-		choice_container.hide()
-		return
-
-	
-	for child in choice_container.get_children():
-		child.queue_free()
-	
-	
-	for choice in choices:
-		var button = Button.new()
-		button.text = choice.text
-		button.connect("pressed", func(): choice_made.emit(choice))
-		choice_container.add_child(button)
-	
-	if is_real :
-		var first_button : Button = choice_container.get_child(0)
-		first_button.grab_focus()
-		
-	
-	choice_container.show()
-	await get_tree().process_frame
+#func setup_choices(choices: Array, bubble : Container, is_real : bool):
+	#
+	#if choices.is_empty():
+		#choice_container.hide()
+		#return
+#
+	#
+	#for child in choice_container.get_children():
+		#child.queue_free()
+	#
+	#
+	#for choice in choices:
+		#var button = Button.new()
+		#button.text = choice.text
+		#button.connect("pressed", func(): choice_made.emit(choice))
+		#choice_container.add_child(button)
+	#
+	#if is_real :
+		#var first_button : Button = choice_container.get_child(0)
+		#first_button.grab_focus()
+		#
+	#
+	#choice_container.show()
+	#await get_tree().process_frame
 	

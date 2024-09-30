@@ -5,7 +5,7 @@ class_name DialogueCharacter
 var DM : DialogueManager
 @export_file("*.json") var dialogue_file: String
 @onready var dialogue_ui = $DialogueUI
-@onready var floating_bubble = $AdvancedFloatingBubble
+@onready var floating_bubble = $DialogueBubble
 @export var bubble_height : float = 2.0
 
 
