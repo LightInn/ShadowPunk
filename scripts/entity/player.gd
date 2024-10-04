@@ -11,22 +11,27 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera = $Camera3D
 @onready var interaction_area = $InteractiveArea
 
+var is_interaction_frozen : bool = false
+
 func _ready():
 	# Fixer la rotation de la caméra à un angle isométrique
 	#camera.rotation_degrees = Vector3(-30, 45, 0)
 	pass
+	
 
 func _physics_process(delta):
 	# Appliquer la gravité
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
-	# Gérer le saut
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_force
-
-	# Obtenir la direction d'entrée
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	
+	var input_dir = Vector2(0,0)
+	
+	if not is_interaction_frozen : 
+		# Gérer le saut
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = jump_force
+		# Obtenir la direction d'entrée
+		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
 	# Calculer la direction en fonction de la caméra
 	var camera_basis = camera.global_transform.basis
@@ -48,6 +53,18 @@ func _physics_process(delta):
 		interact()
 	if Input.is_key_label_pressed(KEY_ESCAPE):
 		get_tree().quit()
+		
+
+func interact_freeze():
+	is_interaction_frozen = true
+
+func interact_unfreeze():
+	is_interaction_frozen = false
+	
+
+
+		
+		
 		
 func interact():
 	var interactables = interaction_area.get_overlapping_bodies()

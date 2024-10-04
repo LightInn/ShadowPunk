@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueBubble.gd" id="1_..."]
 [ext_resource type="PackedScene" uid="uid://dr6ph1rp3bc38" path="res://HUD/Dialogue/bubble.tscn" id="2_0k5pi"]
-[ext_resource type="Texture2D" uid="uid://dt1mucrhd0lcs" path="res://Textures/Dialogue/bubble-bg.png" id="2_..."]
+[ext_resource type="Texture2D" uid="uid://4rib7bagyrpa" path="res://Textures/Dialogue/bubble-tail.png" id="3_ffftq"]
 
 [sub_resource type="ViewportTexture" id="2ssxv"]
 viewport_path = NodePath("SubViewport")
@@ -13,7 +13,6 @@ script = ExtResource("1_...")
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(2, 512)
 
 [node name="Bubble" parent="SubViewport" instance=ExtResource("2_0k5pi")]
 
@@ -23,6 +22,9 @@ texture_filter = 4
 texture = SubResource("2ssxv")
 
 [node name="PointerSprite3D" type="Sprite3D" parent="Sprite3D"]
+transform = Transform3D(6.3169, 0, 0, 0, 7.28424, 0, 0, 0, 0.596616, -0.618234, -1.90015, -1.66893e-05)
 visible = false
+centered = false
 billboard = 1
-texture = ExtResource("2_...")
+texture_filter = 4
+texture = ExtResource("3_ffftq")

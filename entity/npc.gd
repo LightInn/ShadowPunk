@@ -13,4 +13,5 @@ func _process(delta: float) -> void:
 	pass
 
 func interact(player : Player) -> void:
+	player.interact_freeze()
 	DC.interact(player)

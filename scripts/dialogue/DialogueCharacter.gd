@@ -44,7 +44,7 @@ func display_dialogue(dialogue: Dictionary):
 		floating_bubble.show_bubble(target.position)
 
 	else:
-		floating_bubble.hide_bubble()
+		end_dialogue()
 
 func _dialogue_next():
 	DM.advance_dialogue()
@@ -56,14 +56,20 @@ func _dialogue_next():
 
 func _on_choice_made(choice_index: int):
 	DM.make_choice(choice_index)
-	_dialogue_next()
+	var dialogue = DM.get_current_dialogue()
+	display_dialogue(dialogue)
 
 func end_dialogue():
+	print("END DIALOGUE HERE")
 	DM.end_dialogue()
 	dialogue_ui.hide()
 	floating_bubble.hide_bubble()
+	player.interact_unfreeze()
 
 func interact(player : Player):
+	if  DM.get_current_dialogue().type == "choice" :
+		print("Choice here")
+		return
 	set_player(player)
 	if DM.is_dialogue_finished():
 		start_dialogue()

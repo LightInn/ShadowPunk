@@ -61,12 +61,12 @@ void fragment() {
                        color_21, color_22, color_23, color_24, color_25, color_26, color_27, color_28, color_29, color_30,
                        color_31, color_32, color_33, color_34, color_35, color_36, color_37, color_38, color_39, color_40,
                        color_41, color_42, color_43, color_44, color_45, color_46};
-    
+
     float min_diff = 1000.0;
     vec4 min_color = vec4(0.0, 0.0, 0.0, 1.0);
     vec2 uv = SCREEN_UV;
     vec4 temp = textureLod(SCREEN_TEXTURE, uv, 0.0);
-    
+
     for (int i = 0; i < 46; i++) {
         float curr_dist = distance(colors[i], temp);
         if (curr_dist < min_diff) {
@@ -74,6 +74,6 @@ void fragment() {
             min_color = colors[i];
         }
     }
-    
+
     COLOR = vec4(min_color.rgb, 1.0);
 }
