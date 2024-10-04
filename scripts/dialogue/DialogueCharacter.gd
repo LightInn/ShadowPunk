@@ -20,7 +20,7 @@ func _ready():
 	DM = DialogueManager.new()
 	if dialogue_file:
 		DM.load_dialogue(dialogue_file)
-	owner.add_to_group("interactive")
+	get_parent().add_to_group("interactive")
 	
 	floating_bubble.vertical_offset = bubble_height
 	
@@ -39,7 +39,7 @@ func display_dialogue(dialogue: Dictionary):
 	
 	if dialogue.type == "dialogue" or dialogue.type == "choice":
 		
-		var target : Node3D = player if dialogue.speaker == "player" else owner;
+		var target : Node3D = player if dialogue.speaker == "player" else get_parent();
 		
 		floating_bubble.set_dialogue(dialogue)
 		floating_bubble.show_bubble(target.position)

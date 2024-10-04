@@ -22,6 +22,8 @@ shader_parameter/freq2 = 9.0
 shader_parameter/speed2 = 1.46
 
 [node name="Bubble" type="MarginContainer"]
+light_mask = 2
+visibility_layer = 2
 texture_filter = 1
 offset_right = 186.0
 offset_bottom = 66.0

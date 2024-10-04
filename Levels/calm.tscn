@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ddloddlvuf5ls"]
+[gd_scene load_steps=45 format=3 uid="uid://ddloddlvuf5ls"]
 
 [ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="1_rhgp7"]
 [ext_resource type="Shader" path="res://Shaders/palette_limiter.gdshader" id="2_cwgur"]
@@ -22,8 +22,10 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="20_uj2nu"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/path_shape.gd" id="21_gx0ql"]
 [ext_resource type="PackedScene" uid="uid://dd7hmir03og1" path="res://Props/tree.tscn" id="22_13oip"]
+[ext_resource type="PackedScene" uid="uid://oy265uok2ewn" path="res://entity/npc.tscn" id="22_ft8kg"]
 [ext_resource type="PackedScene" uid="uid://cwwigoboexg6b" path="res://orbitCamera.tscn" id="22_w48ol"]
 [ext_resource type="PackedScene" uid="uid://33kxt0dop68y" path="res://directional_light.tscn" id="23_e5tp5"]
+[ext_resource type="PackedScene" uid="uid://d2du5tbspm23g" path="res://entity/player.tscn" id="23_tb16x"]
 [ext_resource type="Script" path="res://directional_light.gd" id="24_74buo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8s7rk"]
@@ -108,7 +110,7 @@ size = Vector2(64, 64)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_khtf5"]
 
-[sub_resource type="Resource" id="Resource_0iyih"]
+[sub_resource type="Resource" id="Resource_31eso"]
 script = ExtResource("14_6qndw")
 amount = 15000
 enabled = true
@@ -117,7 +119,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_q80o8"]
+[sub_resource type="Resource" id="Resource_xxu7x"]
 script = ExtResource("15_w15gf")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(20, 360, 20)
@@ -128,7 +130,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_3dw2s"]
+[sub_resource type="Resource" id="Resource_7kmad"]
 script = ExtResource("16_w3j2r")
 iterations = 3
 offset_step = 0.1
@@ -140,7 +142,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_nj4he"]
+[sub_resource type="Resource" id="Resource_esgxi"]
 script = ExtResource("17_31kfq")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -156,9 +158,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_oovcj"]
+[sub_resource type="Resource" id="Resource_36cyx"]
 script = ExtResource("12_34k3j")
-stack = Array[ExtResource("13_lm1a4")]([SubResource("Resource_0iyih"), SubResource("Resource_q80o8"), SubResource("Resource_3dw2s"), SubResource("Resource_nj4he")])
+stack = Array[ExtResource("13_lm1a4")]([SubResource("Resource_31eso"), SubResource("Resource_xxu7x"), SubResource("Resource_7kmad"), SubResource("Resource_esgxi")])
 
 [sub_resource type="Resource" id="Resource_u7o06"]
 script = ExtResource("20_uj2nu")
@@ -258,7 +260,7 @@ transform = Transform3D(1.98557, 0, -0.239789, 0, 2, 0, 0.239789, 0, 1.98557, -2
 [node name="ProtonScatter" type="Node3D" parent="SubViewportContainer/SubViewport/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0493441, 0)
 script = ExtResource("11_hoec8")
-modifier_stack = SubResource("Resource_oovcj")
+modifier_stack = SubResource("Resource_36cyx")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -278,6 +280,12 @@ transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 script = ExtResource("19_nmxsh")
 negative = true
 shape = SubResource("Resource_4stcm")
+
+[node name="RigidBody3D" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("22_ft8kg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63234, 5.55912, 3.76103)
+
+[node name="player" parent="SubViewportContainer/SubViewport/Map" instance=ExtResource("23_tb16x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14313, 4.12803, 9.39128)
 
 [node name="Orbit" parent="SubViewportContainer/SubViewport" instance=ExtResource("22_w48ol")]
 transform = Transform3D(1, 0, 0, 0, 0.882948, 0.469472, 0, -0.469472, 0.882948, 0, 2.06928, 0)

@@ -13,6 +13,7 @@ script = ExtResource("1_...")
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
+canvas_cull_mask = 4294967291
 
 [node name="Bubble" parent="SubViewport" instance=ExtResource("2_0k5pi")]
 
