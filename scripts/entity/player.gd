@@ -70,12 +70,7 @@ func interact():
 	var interactables = interaction_area.get_overlapping_bodies()
 	for body in interactables:
 		if body.is_in_group("interactive"):
-			body.interact(self)
-			
-			
-			#var dialogue_character = body.get_node("DialogueCharacter")
-			#if dialogue_character and dialogue_character.has_method("interact"):
-				#var distance = global_position.distance_to(body.global_position)
-				#if distance <= interaction_distance:
-					#dialogue_character.interact(self)
-					#break  # Interagir seulement avec le premier NPC à portée
+			var dialogue_component = body.get_node("DialogueComponent")
+			if dialogue_component :
+				dialogue_component.interact(self)
+				break  # Interagir seulement avec le premier NPC à portée

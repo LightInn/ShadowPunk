@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 
-@onready var DC = $DialogueCharacter;
+#@onready var DC = $DialogueCharacter;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 	pass
 
 func interact(player : Player) -> void:
-	player.interact_freeze()
-	DC.interact(player)
+	#DC.interact(player)
+	pass

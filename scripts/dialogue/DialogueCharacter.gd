@@ -20,6 +20,7 @@ func _ready():
 	DM = DialogueManager.new()
 	if dialogue_file:
 		DM.load_dialogue(dialogue_file)
+	owner.add_to_group("interactive")
 	
 	floating_bubble.vertical_offset = bubble_height
 	
@@ -67,13 +68,14 @@ func end_dialogue():
 	player.interact_unfreeze()
 
 func interact(player : Player):
-	if  DM.get_current_dialogue().type == "choice" :
-		print("Choice here")
-		return
 	set_player(player)
+	player.interact_freeze()
 	if DM.is_dialogue_finished():
 		start_dialogue()
 	else : 
+		var current = DM.get_current_dialogue()
+		if  current.type == "choice" :
+			return
 		_dialogue_next()
 	
 	# check si deja demarer, continuer, sinon demarrer.

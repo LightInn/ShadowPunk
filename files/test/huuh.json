@@ -1,0 +1,23 @@
+{
+  "dialogue_id": "shop_interaction",
+  "characters": ["player", "shopkeeper", "mysterious_stranger"],
+  "variables": {
+	"gold": 100,
+	"has_sword": false,
+	"quest_completed": false
+  },
+  "nodes": {
+	"start": {
+	  "type": "dialogue",
+	  "speaker": "LazyOne",
+	  "text": {
+		"en": "Huh, who are you ?",
+		"fr": "hm, t ki ?"
+	  },
+	  "next": "end"
+	},
+	"end": {
+	  "type": "end"
+	}
+  }
+}

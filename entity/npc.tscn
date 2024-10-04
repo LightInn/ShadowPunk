@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://oy265uok2ewn"]
+[gd_scene load_steps=5 format=3 uid="uid://oy265uok2ewn"]
 
 [ext_resource type="Script" path="res://entity/npc.gd" id="1_ecnmg"]
-[ext_resource type="Script" path="res://scripts/dialogue/DialogueCharacter.gd" id="2_jvarp"]
-[ext_resource type="PackedScene" uid="uid://6er8qnse5vx2" path="res://HUD/Dialogue/DialogueUI.tscn" id="3_dhtjv"]
-[ext_resource type="PackedScene" uid="uid://ddfhbn7keklu" path="res://HUD/Dialogue/DialogueBubble.tscn" id="3_tu4fw"]
+[ext_resource type="PackedScene" uid="uid://5s7vltkpc45c" path="res://HUD/Dialogue/DialogueComponent.tscn" id="2_vmoh2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekdid"]
 albedo_color = Color(5.48691e-06, 0.74474, 0.380676, 1)
@@ -21,11 +19,5 @@ material = SubResource("StandardMaterial3D_ekdid")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_0xif3")
 
-[node name="DialogueCharacter" type="Node" parent="."]
-script = ExtResource("2_jvarp")
-dialogue_file = "res://files/story/tests.json"
-
-[node name="DialogueBubble" parent="DialogueCharacter" instance=ExtResource("3_tu4fw")]
-vertical_offset = -0.39
-
-[node name="DialogueUI" parent="DialogueCharacter" instance=ExtResource("3_dhtjv")]
+[node name="DialogueComponent" parent="." instance=ExtResource("2_vmoh2")]
+dialogue_file = "res://files/test/tests.json"
