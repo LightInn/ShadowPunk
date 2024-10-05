@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dr6ph1rp3bc38"]
+[gd_scene load_steps=8 format=3 uid="uid://dr6ph1rp3bc38"]
 
+[ext_resource type="Script" path="res://scripts/dialogue/DialogueBubble.gd" id="1_dfxli"]
 [ext_resource type="Shader" path="res://HUD/Dialogue/bubble.gdshader" id="1_ucf7c"]
 [ext_resource type="Texture2D" uid="uid://dt1mucrhd0lcs" path="res://Textures/Dialogue/bubble-bg.png" id="1_y2voj"]
 [ext_resource type="Texture2D" uid="uid://2wr211qe06fx" path="res://icon.svg" id="2_t66tt"]
@@ -29,6 +30,7 @@ offset_right = 186.0
 offset_bottom = 66.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_dfxli")
 
 [node name="Background" type="NinePatchRect" parent="."]
 texture_filter = 5

@@ -1,13 +1,13 @@
-extends Node3D
+extends Control
 class_name DialogueBubble
 
 signal choice_made(choice_index: int)
 
-@onready var viewport = $SubViewport
-@onready var bubble = $SubViewport/Bubble
-@onready var sprite = $Sprite3D
-@onready var label = $SubViewport/Bubble/Content/Body/Message/Label
-@onready var speaker_label = $SubViewport/Bubble/Content/Header/SpeakerLabel
+#@onready var viewport = $SubViewport
+@onready var bubble = self
+
+@onready var label = $Content/Body/Message/Label
+@onready var speaker_label = $Content/Header/SpeakerLabel
 
 const BubbleUI = preload("res://HUD/Dialogue/bubble.tscn")
 
@@ -59,9 +59,8 @@ func hide_bubble():
 
 func initialize_size():
 	current_size = Vector2.ZERO
-	viewport.size = current_size
-	bubble.size = current_size
-	sprite.pixel_size = 0.01
+	#viewport.size = current_size
+	self.size = current_size
 
 func update_size(delta):
 	current_size = current_size.lerp(target_size, 5.0 * delta)
@@ -72,7 +71,7 @@ func update_label_wrap():
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if target_text.length() > 30 else TextServer.AUTOWRAP_OFF
 
 func update_viewport_and_bubble_size():
-	viewport.size = current_size + Vector2(8, 8)
+	#viewport.size = current_size + Vector2(8, 8)
 	bubble.size = current_size
 	bubble.get_node("Background").custom_minimum_size = current_size
 
@@ -97,8 +96,8 @@ func get_char_speed(char: String) -> float:
 		return text_speed
 
 func update_position(delta):
-	sprite.position = sprite.position.lerp(target_position, MOVING_SPEED * delta)
-	sprite.position.y = vertical_offset
+	self.position = self.position.lerp(Vector2(target_position.x, target_position.y), MOVING_SPEED * delta)
+	self.position.y = vertical_offset
 
 func calculate_target_size(dialogue: Dictionary):
 	var temp_bubble = BubbleUI.instantiate()
@@ -130,7 +129,7 @@ func reset_text_animation():
 func animate_visibility(show: bool):
 	var tween = create_tween()
 	var target_alpha = 1.0 if show else 0.0
-	tween.tween_property(sprite, "modulate:a", target_alpha, 0.3).from(1.0 - target_alpha)
+	#tween.tween_property(sprite, "modulate:a", target_alpha, 0.3).from(1.0 - target_alpha)
 	if not show:
 		tween.tween_callback(set_visible.bind(false))
 	else:
