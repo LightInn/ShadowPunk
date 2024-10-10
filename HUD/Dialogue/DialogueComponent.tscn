@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://5s7vltkpc45c"]
+[gd_scene load_steps=4 format=3 uid="uid://5s7vltkpc45c"]
 
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueCharacter.gd" id="1_d8es2"]
 [ext_resource type="PackedScene" uid="uid://6er8qnse5vx2" path="res://HUD/Dialogue/DialogueUI.tscn" id="3_hilpy"]
 [ext_resource type="PackedScene" uid="uid://dr6ph1rp3bc38" path="res://HUD/Dialogue/bubble.tscn" id="4_ro0tt"]
-[ext_resource type="Script" path="res://scripts/dialogue/DialogueBubble.gd" id="5_jtufw"]
 
 [node name="DialogueComponent" type="Node" groups=["interactive"]]
 script = ExtResource("1_d8es2")
@@ -11,4 +10,3 @@ script = ExtResource("1_d8es2")
 [node name="DialogueUI" parent="." instance=ExtResource("3_hilpy")]
 
 [node name="Bubble" parent="." instance=ExtResource("4_ro0tt")]
-script = ExtResource("5_jtufw")

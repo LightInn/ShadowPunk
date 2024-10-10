@@ -26,7 +26,7 @@ var _current_char_index := 0
 @export var space_speed := 0.03
 @export var special_speed := 0.1
 
-var player : Node3D
+var player : Player
 
 func _ready():
 	hide_bubble()
@@ -96,8 +96,20 @@ func get_char_speed(char: String) -> float:
 		return text_speed
 
 func update_position(delta):
-	self.position = self.position.lerp(Vector2(target_position.x, target_position.y), MOVING_SPEED * delta)
-	self.position.y = vertical_offset
+	if player and player.camera:
+		var cam = player.camera
+		# Projeter la position du joueur sur l'écran (dans l'espace 2D)
+		var screen_position = cam.unproject_position(target_position)
+		
+		# Appliquer un décalage vertical
+		screen_position.y -= vertical_offset
+		
+		# Ajuster la position pour centrer horizontalement
+		screen_position.x -= bubble.size.x / 2
+		
+		# Calculer la nouvelle position avec lerp pour un mouvement fluide
+		var current_position = bubble.position
+		bubble.position = current_position.lerp(screen_position, MOVING_SPEED * delta)
 
 func calculate_target_size(dialogue: Dictionary):
 	var temp_bubble = BubbleUI.instantiate()

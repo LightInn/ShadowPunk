@@ -16,7 +16,8 @@ script = ExtResource("1_uxd8e")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_0xif3")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -2, 5, 2)
 
 [node name="InteractiveArea" type="Area3D" parent="."]

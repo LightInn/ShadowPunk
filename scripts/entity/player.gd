@@ -8,7 +8,7 @@ class_name Player
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@onready var camera = $Camera3D
+@onready var camera = $Camera
 @onready var interaction_area = $InteractiveArea
 
 var is_interaction_frozen : bool = false
